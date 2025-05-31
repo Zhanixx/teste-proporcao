@@ -10,20 +10,32 @@ function calcularProporcao() {
 
   if (isNaN(taraA) || isNaN(cheioA) || isNaN(taraB) || isNaN(cheioB)) return;
 
-  const pesoA = cheioA - taraA;
-  const pesoB = cheioB - taraB;
+  const pesoA = cheioA - taraA; // resina
+  const pesoB = cheioB - taraB; // endurecedor
 
   if (pesoA <= 0 || pesoB <= 0) return;
 
-  const proporcao = (pesoA / pesoB).toFixed(2);
-  const valor = parseFloat(proporcao);
+  let resina, endurecedor, origem;
+
+  if (pesoA > pesoB) {
+    resina = pesoA;
+    endurecedor = pesoB;
+    origem = "(Resina do balde A / Endurecedor do balde B)";
+  } else {
+    resina = pesoB;
+    endurecedor = pesoA;
+    origem = "(Resina do balde B / Endurecedor do balde A)";
+  }
+
+  const proporcao = (endurecedor / resina).toFixed(2);
+  const valor = parseFloat(proporcao) * 100;
 
   let status = '';
   if (valor >= 28 && valor <= 32) {
-    status = `✅ Proporção: ${proporcao} — Dentro do intervalo (28 a 32)`;
+    status = `✅ Proporção: ${valor.toFixed(2)} (Endurecedor ÷ Resina)\n📘 ${origem}\n✅ Dentro do intervalo (28 a 32)`;
     resultadoDiv.style.backgroundColor = "#d4edda";
   } else {
-    status = `❌ Proporção: ${proporcao} — Fora do intervalo (28 a 32)`;
+    status = `❌ Proporção: ${valor.toFixed(2)} (Endurecedor ÷ Resina)\n📘 ${origem}\n❌ Fora do intervalo (28 a 32)`;
     resultadoDiv.style.backgroundColor = "#f8d7da";
   }
 
