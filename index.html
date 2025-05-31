@@ -1,92 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Teste de Proporção - Resina e Endurecedor</title>
-
-<!-- Tailwind CSS -->
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
-<style>
-  body {
-    transition: background-color 0.3s, color 0.3s;
-  }
-  .dark body {
-    background-color: #121212;
-    color: #e0e0e0;
-  }
-  .dark input, .dark select, .dark textarea {
-    background-color: #1f2937;
-    color: #e0e0e0;
-    border-color: #374151;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Proporção</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gray-100 text-gray-900 transition-colors" id="main-body">
-
-  <div class="max-w-4xl mx-auto p-6">
-
-    <header class="flex justify-between items-center mb-6">
-      <h1 class="text-3xl font-bold" data-i18n="title">Teste de Proporção</h1>
-      <div class="flex items-center space-x-4">
-        <select id="lang-select" class="p-2 border rounded">
+<body>
+  <div class="container">
+    <header>
+      <h1 data-i18n="title">Cálculo de Proporção</h1>
+      <div class="controls">
+        <select id="languageSelector">
           <option value="pt">Português</option>
+          <option value="en">English</option>
           <option value="zh">中文</option>
         </select>
-        <button id="theme-toggle" class="p-2 rounded bg-gray-300 dark:bg-gray-700" title="Alternar modo escuro">🌙</button>
+        <button id="toggleTheme" data-i18n="toggle_theme">Modo Escuro</button>
       </div>
     </header>
 
-    <form id="calc-form" class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white dark:bg-gray-800 p-6 rounded shadow">
-
-      <div>
-        <label for="taraA" class="block font-semibold mb-1" data-i18n="taraA">Tara do Balde A (resina)</label>
-        <input id="taraA" type="number" step="0.001" min="0" placeholder="0.849" required class="w-full p-2 rounded border" />
+    <form id="proportionForm">
+      <div class="form-group">
+        <label data-i18n="tara_a">Tara Balde A (Resina):</label>
+        <input type="number" step="0.001" id="taraA" placeholder="Ex: 0.849" required />
       </div>
-
-      <div>
-        <label for="taraB" class="block font-semibold mb-1" data-i18n="taraB">Tara do Balde B (endurecedor)</label>
-        <input id="taraB" type="number" step="0.001" min="0" placeholder="0.850" required class="w-full p-2 rounded border" />
+      <div class="form-group">
+        <label data-i18n="cheio_a">Peso com Resina:</label>
+        <input type="number" step="0.001" id="cheioA" placeholder="Ex: 5.849" required />
       </div>
-
-      <div>
-        <label for="finalA" class="block font-semibold mb-1" data-i18n="finalA">Peso com resina (A)</label>
-        <input id="finalA" type="number" step="0.001" min="0" required class="w-full p-2 rounded border" />
+      <div class="form-group">
+        <label data-i18n="tara_b">Tara Balde B (Endurecedor):</label>
+        <input type="number" step="0.001" id="taraB" placeholder="Ex: 0.850" required />
       </div>
-
-      <div>
-        <label for="finalB" class="block font-semibold mb-1" data-i18n="finalB">Peso com endurecedor (B)</label>
-        <input id="finalB" type="number" step="0.001" min="0" required class="w-full p-2 rounded border" />
-      </div>
-
-      <div class="md:col-span-2">
-        <label for="tecnico" class="block font-semibold mb-1" data-i18n="tecnico">Técnico Responsável</label>
-        <input id="tecnico" type="text" placeholder="Nome do técnico" class="w-full p-2 rounded border" />
-      </div>
-
-      <div class="md:col-span-2">
-        <label for="observacoes" class="block font-semibold mb-1" data-i18n="observacoes">Observações</label>
-        <textarea id="observacoes" rows="2" class="w-full p-2 rounded border" placeholder="Observações adicionais"></textarea>
-      </div>
-
-      <div class="md:col-span-2 flex space-x-2">
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" data-i18n="calcular">Calcular</button>
-        <button type="button" id="export-pdf" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-i18n="exportarPDF">Exportar PDF</button>
+      <div class="form-group">
+        <label data-i18n="cheio_b">Peso com Endurecedor:</label>
+        <input type="number" step="0.001" id="cheioB" placeholder="Ex: 3.650" required />
       </div>
     </form>
 
-    <section id="result-box" class="hidden mt-6 bg-white dark:bg-gray-800 p-4 rounded shadow">
-      <h2 class="text-xl font-semibold mb-2" data-i18n="resultado">Resultado</h2>
-      <p id="result-text" class="text-lg"></p>
-    </section>
-
+    <div id="resultado" class="resultado"></div>
   </div>
 
-  <!-- Bibliotecas externas -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
+  <script src="lang.js"></script>
   <script src="script.js"></script>
-
 </body>
 </html>
