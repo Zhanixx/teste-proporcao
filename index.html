@@ -4,54 +4,94 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Teste de Proporção - Resina e Endurecedor</title>
+  
+  <!-- Tailwind CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+  <!-- Bibliotecas externas -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <style>
+    body {
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .fade-enter {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    .fade-enter-active {
+      opacity: 1;
+      transform: scale(1);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+    .neumorph {
+      background: #e0e0e0;
+      box-shadow: 8px 8px 15px #bebebe, -8px -8px 15px #ffffff;
+    }
+    .dark .neumorph {
+      background: #1f2937;
+      box-shadow: 6px 6px 12px #0f172a, -6px -6px 12px #334155;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white transition-colors">
+<body class="bg-gray-100 text-gray-800 transition-colors" id="main-body">
   <div class="container mx-auto px-4 py-6">
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold" id="title">Teste de Proporção</h1>
-      <div>
-        <select id="language" class="p-1 rounded border">
+      <h1 class="text-3xl font-extrabold tracking-tight" data-i18n="proporcaoIdeal">Teste de Proporção</h1>
+      <div class="flex items-center space-x-2">
+        <select id="lang-select" class="p-2 rounded border shadow-sm">
           <option value="pt">Português</option>
           <option value="zh">中文</option>
         </select>
-        <button onclick="toggleDarkMode()" class="ml-2 bg-gray-300 dark:bg-gray-700 px-2 py-1 rounded">🌙</button>
+        <button id="theme-toggle" class="p-2 rounded bg-gray-200 hover:scale-105 transition-transform">🌙</button>
       </div>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-4 mb-6">
+    <form id="calc-form" class="grid md:grid-cols-2 gap-4 mb-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
       <div>
         <label for="taraA" class="block font-medium mb-1" data-i18n="taraA">Tara do Balde A (resina)</label>
-        <input type="number" id="taraA" class="w-full p-2 rounded border" placeholder="Ex: 0.849" step="0.001" />
+        <input type="number" id="taraA" class="w-full p-2 rounded border" placeholder="Ex: 0.849" step="0.001" required />
       </div>
       <div>
         <label for="taraB" class="block font-medium mb-1" data-i18n="taraB">Tara do Balde B (endurecedor)</label>
-        <input type="number" id="taraB" class="w-full p-2 rounded border" placeholder="Ex: 0.850" step="0.001" />
+        <input type="number" id="taraB" class="w-full p-2 rounded border" placeholder="Ex: 0.850" step="0.001" required />
       </div>
       <div>
-        <label for="pesoA" class="block font-medium mb-1" data-i18n="pesoA">Peso com resina (A)</label>
-        <input type="number" id="pesoA" class="w-full p-2 rounded border" step="0.001" />
+        <label for="finalA" class="block font-medium mb-1" data-i18n="pesoA">Peso com resina (A)</label>
+        <input type="number" id="finalA" class="w-full p-2 rounded border" step="0.001" required />
       </div>
       <div>
-        <label for="pesoB" class="block font-medium mb-1" data-i18n="pesoB">Peso com endurecedor (B)</label>
-        <input type="number" id="pesoB" class="w-full p-2 rounded border" step="0.001" />
+        <label for="finalB" class="block font-medium mb-1" data-i18n="pesoB">Peso com endurecedor (B)</label>
+        <input type="number" id="finalB" class="w-full p-2 rounded border" step="0.001" required />
       </div>
+      <div class="md:col-span-2">
+        <label for="tecnico" class="block font-medium mb-1" data-i18n="tecnico">Técnico Responsável</label>
+        <input type="text" id="tecnico" class="w-full p-2 rounded border" placeholder="Nome do técnico" />
+      </div>
+      <div class="md:col-span-2">
+        <label for="observacoes" class="block font-medium mb-1" data-i18n="observacoes">Observações</label>
+        <textarea id="observacoes" class="w-full p-2 rounded border" rows="2" placeholder="Observações adicionais"></textarea>
+      </div>
+      <div class="md:col-span-2 flex flex-wrap gap-2 mt-2">
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors" data-i18n="calcular">Calcular</button>
+        <button type="button" id="export-pdf" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors" data-i18n="exportarPDF">Exportar PDF</button>
+        <button type="button" id="export-excel" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition-colors" data-i18n="exportarExcel">Exportar Excel</button>
+      </div>
+    </form>
+
+    <div id="result-box" class="hidden mt-4 p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800 fade-enter">
+      <div id="result" class="text-xl font-semibold"></div>
     </div>
 
-    <button onclick="calcularProporcao()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" data-i18n="calcular">Calcular</button>
-    <button onclick="exportarPDF()" class="ml-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-i18n="exportarPDF">Exportar PDF</button>
-    <button onclick="exportarExcel()" class="ml-2 bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600" data-i18n="exportarExcel">Exportar Excel</button>
-
-    <div id="resultado" class="mt-6 text-lg font-semibold"></div>
-
-    <canvas id="graficoProporcao" class="mt-6"></canvas>
+    <div class="mt-6">
+      <canvas id="chart" class="rounded-lg shadow-md bg-white dark:bg-gray-800 p-4"></canvas>
+    </div>
 
     <div class="mt-6">
       <h2 class="text-xl font-bold mb-2" data-i18n="historico">Histórico de Testes</h2>
-      <ul id="historico" class="space-y-1 text-sm"></ul>
+      <ul id="historico" class="space-y-1 text-sm bg-white dark:bg-gray-800 p-4 rounded shadow"></ul>
     </div>
   </div>
 
