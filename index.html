@@ -3,36 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculadora de Proporção</title>
+  <title>Calculadora de Proporção Epóxi</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container fade-in">
+  <div class="container">
     <header>
-      <h1>🧪 Calculadora de Proporção</h1>
-      <button id="toggleTheme" title="Alternar entre claro e escuro">🌓</button>
+      <h1 id="titulo">Calculadora de Proporção</h1>
+      <div class="toolbar">
+        <button id="toggleTheme">🌙/☀️</button>
+        <button id="toggleLang">🇧🇷/🇨🇳</button>
+      </div>
     </header>
 
     <form id="proportionForm">
       <div class="form-group">
-        <label title="Peso do balde vazio A">Tara Balde A (Resina):</label>
-        <input type="number" step="0.001" id="taraA" placeholder="Ex: 0.849" required />
+        <label data-pt="Tara Balde A (Resina):" data-zh="空桶A（树脂）皮重：">Tara Balde A (Resina):</label>
+        <input type="number" step="0.001" id="taraA" required />
       </div>
       <div class="form-group">
-        <label title="Peso total com resina no balde A">Peso com Resina:</label>
-        <input type="number" step="0.001" id="cheioA" placeholder="Ex: 5.849" required />
+        <label data-pt="Peso com Resina:" data-zh="加树脂后的重量：">Peso com Resina:</label>
+        <input type="number" step="0.001" id="cheioA" required />
       </div>
       <div class="form-group">
-        <label title="Peso do balde vazio B">Tara Balde B (Endurecedor):</label>
-        <input type="number" step="0.001" id="taraB" placeholder="Ex: 0.850" required />
+        <label data-pt="Tara Balde B (Endurecedor):" data-zh="空桶B（固化剂）皮重：">Tara Balde B (Endurecedor):</label>
+        <input type="number" step="0.001" id="taraB" required />
       </div>
       <div class="form-group">
-        <label title="Peso total com endurecedor no balde B">Peso com Endurecedor:</label>
-        <input type="number" step="0.001" id="cheioB" placeholder="Ex: 3.650" required />
+        <label data-pt="Peso com Endurecedor:" data-zh="加固化剂后的重量：">Peso com Endurecedor:</label>
+        <input type="number" step="0.001" id="cheioB" required />
       </div>
+
+      <button type="button" id="calcularBtn" class="btn-calcular">Calcular Proporção</button>
     </form>
 
-    <div id="resultado" class="resultado fade-in"></div>
+    <div id="resultado" class="resultado"></div>
   </div>
 
   <script src="script.js"></script>
