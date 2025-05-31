@@ -20,14 +20,14 @@ function calcularProporcao() {
 
   let status = '';
   if (valor >= 28 && valor <= 32) {
-    status = `✅ Dentro do intervalo (28 a 32)`;
+    status = `✅ Proporção: ${proporcao} — Dentro do intervalo (28 a 32)`;
     resultadoDiv.style.backgroundColor = "#d4edda";
   } else {
-    status = `❌ Fora do intervalo (28 a 32)`;
+    status = `❌ Proporção: ${proporcao} — Fora do intervalo (28 a 32)`;
     resultadoDiv.style.backgroundColor = "#f8d7da";
   }
 
-  resultadoDiv.textContent = `Proporção: ${proporcao} — ${status}`;
+  resultadoDiv.textContent = status;
 }
 
 inputs.forEach(input => {
