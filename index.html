@@ -1,281 +1,60 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Proporção Resina / Endurecedor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teste de Proporção - Resina e Endurecedor</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #eef3f9;
-      --card: #ffffff;
-      --text: #333;
-      --accent: #3498db;
-      --success: #27ae60;
-      --danger: #c0392b;
-    }
-
-    body.dark {
-      --bg: #121212;
-      --card: #1e1e1e;
-      --text: #f0f0f0;
-    }
-
-    * {
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
-
-    body {
-      background-color: var(--bg);
-      margin: 0;
-      padding: 20px;
-      color: var(--text);
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .container {
-      background: var(--card);
-      max-width: 600px;
-      margin: auto;
-      padding: 25px 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      transition: background 0.3s;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .theme-toggle {
-      text-align: right;
-      margin-bottom: 15px;
-    }
-
-    .theme-toggle button {
-      background: none;
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-      color: var(--accent);
-    }
-
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-    }
-
-    label {
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    input {
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 10px;
-      flex-direction: column;
-    }
-
-    button {
-      padding: 12px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .btn-calc {
-      background-color: var(--accent);
-      color: white;
-    }
-
-    .btn-calc:hover {
-      background-color: #2980b9;
-    }
-
-    .btn-pdf {
-      background-color: var(--success);
-      color: white;
-    }
-
-    .btn-pdf:hover {
-      background-color: #1e874b;
-    }
-
-    .resultado {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 15px;
-      line-height: 1.6;
-      border-left: 5px solid;
-    }
-
-    .ok {
-      background-color: #d1f5e0;
-      border-color: var(--success);
-      color: #155724;
-    }
-
-    .erro {
-      background-color: #f8d7da;
-      border-color: var(--danger);
-      color: #721c24;
-    }
-
-    @media (max-width: 600px) {
-      .actions {
-        flex-direction: column;
-      }
-    }
-  </style>
 </head>
-<body>
-  <div class="container">
-    <div class="theme-toggle">
-      <button onclick="toggleTheme()">🌓 Alternar Tema</button>
-    </div>
-
-    <h2>Teste de Proporção</h2>
-
-    <div class="field-group">
-      <div class="field">
-        <label for="taraA">Tara do Balde A (Resina):</label>
-        <input type="number" id="taraA" step="0.001">
-      </div>
-
-      <div class="field">
-        <label for="pesoA">Peso com Resina (Balde A):</label>
-        <input type="number" id="pesoA" step="0.001">
-      </div>
-
-      <div class="field">
-        <label for="taraB">Tara do Balde B (Endurecedor):</label>
-        <input type="number" id="taraB" step="0.001">
-      </div>
-
-      <div class="field">
-        <label for="pesoB">Peso com Endurecedor (Balde B):</label>
-        <input type="number" id="pesoB" step="0.001">
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white transition-colors">
+  <div class="container mx-auto px-4 py-6">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold" id="title">Teste de Proporção</h1>
+      <div>
+        <select id="language" class="p-1 rounded border">
+          <option value="pt">Português</option>
+          <option value="zh">中文</option>
+        </select>
+        <button onclick="toggleDarkMode()" class="ml-2 bg-gray-300 dark:bg-gray-700 px-2 py-1 rounded">🌙</button>
       </div>
     </div>
 
-    <div class="actions">
-      <button class="btn-calc" onclick="calcularProporcao()">🔍 Calcular Proporção</button>
-      <button class="btn-pdf" onclick="gerarPDF()">📄 Gerar PDF</button>
+    <div class="grid md:grid-cols-2 gap-4 mb-6">
+      <div>
+        <label for="taraA" class="block font-medium mb-1" data-i18n="taraA">Tara do Balde A (resina)</label>
+        <input type="number" id="taraA" class="w-full p-2 rounded border" placeholder="Ex: 0.849" step="0.001" />
+      </div>
+      <div>
+        <label for="taraB" class="block font-medium mb-1" data-i18n="taraB">Tara do Balde B (endurecedor)</label>
+        <input type="number" id="taraB" class="w-full p-2 rounded border" placeholder="Ex: 0.850" step="0.001" />
+      </div>
+      <div>
+        <label for="pesoA" class="block font-medium mb-1" data-i18n="pesoA">Peso com resina (A)</label>
+        <input type="number" id="pesoA" class="w-full p-2 rounded border" step="0.001" />
+      </div>
+      <div>
+        <label for="pesoB" class="block font-medium mb-1" data-i18n="pesoB">Peso com endurecedor (B)</label>
+        <input type="number" id="pesoB" class="w-full p-2 rounded border" step="0.001" />
+      </div>
     </div>
 
-    <div id="resultado" class="resultado" style="display:none;"></div>
+    <button onclick="calcularProporcao()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" data-i18n="calcular">Calcular</button>
+    <button onclick="exportarPDF()" class="ml-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" data-i18n="exportarPDF">Exportar PDF</button>
+    <button onclick="exportarExcel()" class="ml-2 bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600" data-i18n="exportarExcel">Exportar Excel</button>
+
+    <div id="resultado" class="mt-6 text-lg font-semibold"></div>
+
+    <canvas id="graficoProporcao" class="mt-6"></canvas>
+
+    <div class="mt-6">
+      <h2 class="text-xl font-bold mb-2" data-i18n="historico">Histórico de Testes</h2>
+      <ul id="historico" class="space-y-1 text-sm"></ul>
+    </div>
   </div>
 
-  <script>
-    let ultimoResultado = "";
-
-    function calcularProporcao() {
-      const taraA = parseFloat(document.getElementById('taraA').value);
-      const pesoA = parseFloat(document.getElementById('pesoA').value);
-      const taraB = parseFloat(document.getElementById('taraB').value);
-      const pesoB = parseFloat(document.getElementById('pesoB').value);
-      const resultadoDiv = document.getElementById('resultado');
-
-      if (isNaN(taraA) || isNaN(pesoA) || isNaN(taraB) || isNaN(pesoB)) {
-        alert("Preencha todos os campos corretamente.");
-        return;
-      }
-
-      const massaResina = pesoA - taraA;
-      const massaEndurecedor = pesoB - taraB;
-
-      if (massaResina <= 0 || massaEndurecedor <= 0) {
-        alert("As massas devem ser positivas.");
-        return;
-      }
-
-      const proporcao = (massaEndurecedor / massaResina) * 100;
-      let mensagemHTML = `
-        <strong>📊 Relatório:</strong><br>
-        🔹 Massa Resina (A): <strong>${massaResina.toFixed(3)} kg</strong><br>
-        🔸 Massa Endurecedor (B): <strong>${massaEndurecedor.toFixed(3)} kg</strong><br>
-        ⚖️ Proporção: <strong>${proporcao.toFixed(2)}%</strong><br><br>
-      `;
-      let status;
-
-      if (proporcao >= 28 && proporcao <= 32) {
-        mensagemHTML += "✅ <strong>Status:</strong> Dentro da faixa aceitável (28% - 32%)";
-        resultadoDiv.className = "resultado ok";
-        status = "Status: OK";
-      } else if (proporcao < 28) {
-        mensagemHTML += "⚠️ <strong>Status:</strong> Proporção baixa. Abaixo de 28%";
-        resultadoDiv.className = "resultado erro";
-        status = "Status: Baixa";
-      } else {
-        mensagemHTML += "⚠️ <strong>Status:</strong> Proporção alta. Acima de 32%";
-        resultadoDiv.className = "resultado erro";
-        status = "Status: Alta";
-      }
-
-      resultadoDiv.style.display = 'block';
-      resultadoDiv.innerHTML = mensagemHTML;
-
-      // Para PDF
-      ultimoResultado = `Tara A: ${taraA} kg\nPeso A: ${pesoA} kg\nTara B: ${taraB} kg\nPeso B: ${pesoB} kg\n` +
-        `Massa Resina: ${massaResina.toFixed(3)} kg\nMassa Endurecedor: ${massaEndurecedor.toFixed(3)} kg\n` +
-        `Proporção: ${proporcao.toFixed(2)}%\n${status}`;
-    }
-
-    async function gerarPDF() {
-      if (!ultimoResultado) {
-        alert("Calcule a proporção antes de gerar o PDF.");
-        return;
-      }
-
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      const data = new Date().toLocaleString();
-
-      doc.setFontSize(12);
-      doc.text("Relatório de Proporção Resina/Endurecedor", 20, 20);
-      doc.text(`Data/Hora: ${data}`, 20, 30);
-
-      const linhas = ultimoResultado.split("\n");
-      let y = 45;
-      for (let linha of linhas) {
-        doc.text(linha, 20, y);
-        y += 8;
-      }
-
-      doc.save(`proporcao_${data.replace(/[\W]/g, "_")}.pdf`);
-    }
-
-    // Alternar tema
-    function toggleTheme() {
-      document.body.classList.toggle("dark");
-      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
-    }
-
-    // Ao carregar, aplicar o tema salvo
-    window.onload = () => {
-      const temaSalvo = localStorage.getItem("theme");
-      if (temaSalvo === "dark") document.body.classList.add("dark");
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
