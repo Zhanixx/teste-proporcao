@@ -2,96 +2,92 @@ body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f8f9fa;
-  color: #333;
-  transition: background 0.3s, color 0.3s;
+  background-color: #f4f4f4;
+  color: #222;
+  transition: all 0.3s ease;
 }
 
-body.dark-mode {
+.dark-mode {
   background-color: #121212;
-  color: #f0f0f0;
+  color: #eee;
 }
 
 .container {
-  max-width: 550px;
-  margin: 3rem auto;
-  padding: 2rem;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  transition: background 0.3s ease, transform 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-body.dark-mode .container {
-  background: #1f1f1f;
+.dark-mode .container {
+  background: #1e1e1e;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
 }
 
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
 }
 
-header button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  font-size: 1.2rem;
+.toolbar button {
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.8rem;
   cursor: pointer;
-  transition: background 0.3s;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
 
-header button:hover {
-  background-color: #0056b3;
+#toggleTheme {
+  background-color: #444;
+  color: #fff;
+}
+
+#toggleLang {
+  background-color: #007bff;
+  color: #fff;
+}
+
+form {
+  margin-top: 1.5rem;
 }
 
 .form-group {
-  margin-bottom: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s;
+  margin-bottom: 1rem;
 }
 
 input {
+  width: 100%;
   padding: 0.6rem;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: box-shadow 0.2s;
+  border-radius: 6px;
 }
 
-input:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px #80bdff;
+.btn-calcular {
+  background-color: #28a745;
+  color: white;
+  padding: 0.8rem;
+  width: 100%;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-input:valid {
-  border-color: #28a745;
+.btn-calcular:hover {
+  background-color: #218838;
+  transform: scale(1.02);
 }
 
 .resultado {
-  margin-top: 1.5rem;
-  padding: 1.2rem;
+  margin-top: 1rem;
+  padding: 1rem;
   border-radius: 10px;
   font-weight: bold;
-  background: #eee;
-  font-size: 1.1rem;
-  transition: background 0.3s, transform 0.3s ease;
-}
-
-body.dark-mode .resultado {
-  background: #2e2e2e;
-}
-
-/* ✨ Animações */
-.fade-in {
-  animation: fadeIn 0.8s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  white-space: pre-wrap;
 }
