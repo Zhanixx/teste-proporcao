@@ -33,13 +33,18 @@ header {
   margin-bottom: 1rem;
 }
 
-.controls select,
-.controls button {
-  margin-left: 0.5rem;
-  padding: 0.5rem;
+header button {
+  padding: 0.5rem 1rem;
   border-radius: 8px;
   border: none;
-  font-size: 0.9rem;
+  background-color: #007BFF;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+header button:hover {
+  background-color: #0056b3;
 }
 
 .form-group {
