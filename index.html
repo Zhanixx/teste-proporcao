@@ -2,43 +2,63 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculadora de Proporção Epóxi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de Proporções</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <header>
-      <h1 id="titulo">Calculadora de Proporção</h1>
+      <h1 id="titulo">Calculadora de Proporções</h1>
       <div class="toolbar">
         <button id="toggleTheme">🌙/☀️</button>
         <button id="toggleLang">🇧🇷/🇨🇳</button>
       </div>
     </header>
 
-    <form id="proportionForm">
-      <div class="form-group">
-        <label data-pt="Tara Balde A (Resina):" data-zh="空桶A（树脂）皮重：">Tara Balde A (Resina):</label>
-        <input type="number" step="0.001" id="taraA" required />
-      </div>
-      <div class="form-group">
-        <label data-pt="Peso com Resina:" data-zh="加树脂后的重量：">Peso com Resina:</label>
-        <input type="number" step="0.001" id="cheioA" required />
-      </div>
-      <div class="form-group">
-        <label data-pt="Tara Balde B (Endurecedor):" data-zh="空桶B（固化剂）皮重：">Tara Balde B (Endurecedor):</label>
-        <input type="number" step="0.001" id="taraB" required />
-      </div>
-      <div class="form-group">
-        <label data-pt="Peso com Endurecedor:" data-zh="加固化剂后的重量：">Peso com Endurecedor:</label>
-        <input type="number" step="0.001" id="cheioB" required />
-      </div>
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="resina">Resina</button>
+      <button class="tab-btn" data-tab="reparo">Reparos</button>
+      <button class="tab-btn" data-tab="cola">Massa de Cola</button>
+    </nav>
 
-      <button type="button" id="calcularBtn" class="btn-calcular">Calcular Proporção</button>
-    </form>
+    <div class="tab-content active" id="resina">
+      <!-- Conteúdo padrão de resina -->
+      <form class="calc-form" data-tolerancia="30">
+        <h2>Proporção de Resina</h2>
+        <input type="number" step="0.001" placeholder="Tara A (Resina)" class="taraA" required>
+        <input type="number" step="0.001" placeholder="Peso com Resina" class="cheioA" required>
+        <input type="number" step="0.001" placeholder="Tara B (Endurecedor)" class="taraB" required>
+        <input type="number" step="0.001" placeholder="Peso com Endurecedor" class="cheioB" required>
+        <button type="button" class="btn-calcular">Calcular</button>
+        <div class="resultado"></div>
+      </form>
+    </div>
 
-    <div id="resultado" class="resultado"></div>
+    <div class="tab-content" id="reparo">
+      <form class="calc-form" data-tolerancia="32">
+        <h2>Proporção de Reparos</h2>
+        <input type="number" step="0.001" placeholder="Tara A (Resina)" class="taraA" required>
+        <input type="number" step="0.001" placeholder="Peso com Resina" class="cheioA" required>
+        <input type="number" step="0.001" placeholder="Tara B (Endurecedor)" class="taraB" required>
+        <input type="number" step="0.001" placeholder="Peso com Endurecedor" class="cheioB" required>
+        <button type="button" class="btn-calcular">Calcular</button>
+        <div class="resultado"></div>
+      </form>
+    </div>
+
+    <div class="tab-content" id="cola">
+      <form class="calc-form" data-tolerancia="42">
+        <h2>Proporção Massa de Cola</h2>
+        <input type="number" step="0.001" placeholder="Peso Cola Verde" class="peso1" required>
+        <input type="number" step="0.001" placeholder="Peso Cola Amarela" class="peso2" required>
+        <button type="button" class="btn-calcular">Calcular</button>
+        <div class="resultado"></div>
+      </form>
+    </div>
   </div>
+
+  <footer class="watermark">Desenvolvido por Gustavo</footer>
 
   <script src="script.js"></script>
 </body>
