@@ -47,10 +47,10 @@ LocalStorage — persistência do tema escuro
 
 Faça o download ou clone o repositório:
 
-git clone https://github.com/seuusuario/calculadora-proporcoes.git
+git (https://zhanixx.github.io/teste-proporcao/)
 
 
-Abra o arquivo index.html em qualquer navegador moderno.
+Abra o arquivo index.html em qualquer navegador.
 
 Escolha uma aba (Resina, Reparos ou Massa de Cola).
 
