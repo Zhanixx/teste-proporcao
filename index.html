@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calculadora de Proporções</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -11,8 +11,8 @@
     <header>
       <h1 id="titulo">Calculadora de Proporções</h1>
       <div class="toolbar">
-        <button id="toggleTheme">🌙/☀️</button>
-        <button id="toggleLang">🇧🇷/🇨🇳</button>
+        <button id="toggleTheme" title="Alternar tema">🌙/☀️</button>
+        <button id="toggleLang" title="Alternar idioma">🇧🇷/🇨🇳</button>
       </div>
     </header>
 
@@ -22,44 +22,44 @@
       <button class="tab-btn" data-tab="cola">Massa de Cola</button>
     </nav>
 
-    <div class="tab-content active" id="resina">
-      <!-- Conteúdo padrão de resina -->
-      <form class="calc-form" data-tolerancia="30">
-        <h2>Proporção de Resina</h2>
-        <input type="number" step="0.001" placeholder="Tara A (Resina)" class="taraA" required>
-        <input type="number" step="0.001" placeholder="Peso com Resina" class="cheioA" required>
-        <input type="number" step="0.001" placeholder="Tara B (Endurecedor)" class="taraB" required>
-        <input type="number" step="0.001" placeholder="Peso com Endurecedor" class="cheioB" required>
-        <button type="button" class="btn-calcular">Calcular</button>
-        <div class="resultado"></div>
-      </form>
-    </div>
+    <main>
+      <section class="tab-content active" id="resina">
+        <form class="calc-form" data-tipo="resina" data-tolerancia="30">
+          <h2>Proporção de Resina</h2>
+          <input type="number" step="0.001" placeholder="Tara A (Resina)" class="taraA" required>
+          <input type="number" step="0.001" placeholder="Peso com Resina" class="cheioA" required>
+          <input type="number" step="0.001" placeholder="Tara B (Endurecedor)" class="taraB" required>
+          <input type="number" step="0.001" placeholder="Peso com Endurecedor" class="cheioB" required>
+          <button type="button" class="btn-calcular">Calcular</button>
+          <div class="resultado"></div>
+        </form>
+      </section>
 
-    <div class="tab-content" id="reparo">
-      <form class="calc-form" data-tolerancia="32">
-        <h2>Proporção de Reparos</h2>
-        <input type="number" step="0.001" placeholder="Tara A (Resina)" class="taraA" required>
-        <input type="number" step="0.001" placeholder="Peso com Resina" class="cheioA" required>
-        <input type="number" step="0.001" placeholder="Tara B (Endurecedor)" class="taraB" required>
-        <input type="number" step="0.001" placeholder="Peso com Endurecedor" class="cheioB" required>
-        <button type="button" class="btn-calcular">Calcular</button>
-        <div class="resultado"></div>
-      </form>
-    </div>
+      <section class="tab-content" id="reparo">
+        <form class="calc-form" data-tipo="reparo" data-tolerancia="32">
+          <h2>Proporção de Reparos</h2>
+          <input type="number" step="0.001" placeholder="Tara A (Resina)" class="taraA" required>
+          <input type="number" step="0.001" placeholder="Peso com Resina" class="cheioA" required>
+          <input type="number" step="0.001" placeholder="Tara B (Endurecedor)" class="taraB" required>
+          <input type="number" step="0.001" placeholder="Peso com Endurecedor" class="cheioB" required>
+          <button type="button" class="btn-calcular">Calcular</button>
+          <div class="resultado"></div>
+        </form>
+      </section>
 
-    <div class="tab-content" id="cola">
-      <form class="calc-form" data-tolerancia="42">
-        <h2>Proporção Massa de Cola</h2>
-        <input type="number" step="0.001" placeholder="Peso Cola Verde" class="peso1" required>
-        <input type="number" step="0.001" placeholder="Peso Cola Amarela" class="peso2" required>
-        <button type="button" class="btn-calcular">Calcular</button>
-        <div class="resultado"></div>
-      </form>
-    </div>
+      <section class="tab-content" id="cola">
+        <form class="calc-form" data-tipo="cola" data-tolerancia="42">
+          <h2>Proporção Massa de Cola</h2>
+          <input type="number" step="0.001" placeholder="Peso Cola Verde" class="peso1" required>
+          <input type="number" step="0.001" placeholder="Peso Cola Amarela" class="peso2" required>
+          <button type="button" class="btn-calcular">Calcular</button>
+          <div class="resultado"></div>
+        </form>
+      </section>
+    </main>
   </div>
 
   <footer class="watermark">Desenvolvido por Gustavo</footer>
-
   <script src="script.js"></script>
 </body>
 </html>
