@@ -30,6 +30,13 @@ themeBtn.onclick = () => {
 // Sistema de idiomas (Português ⇄ Chinês Simplificado)
 // -------------------------------
 const langBtn = document.getElementById('toggleLang');
+
+// Detecção automática do idioma do navegador
+const userLang = navigator.language || navigator.userLanguage;
+if (userLang.startsWith('zh')) {
+  document.documentElement.lang = 'zh';
+}
+
 langBtn.addEventListener('click', () => {
   const html = document.documentElement;
   const newLang = html.lang === 'pt' ? 'zh' : 'pt';
@@ -38,7 +45,7 @@ langBtn.addEventListener('click', () => {
 });
 
 function updateLanguage(lang) {
-  // Tradução de textos fixos
+  // Tradução de textos
   document.querySelectorAll('[data-pt]').forEach(el => {
     el.textContent = el.getAttribute(`data-${lang}`);
   });
@@ -70,11 +77,11 @@ function updateLanguage(lang) {
   });
 }
 
-// Inicializa idioma padrão
+// Inicializa idioma atual
 updateLanguage(document.documentElement.lang);
 
 // -------------------------------
-// Cálculo geral das proporções
+// Cálculo das proporções
 // -------------------------------
 document.querySelectorAll('.btn-calcular').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -89,28 +96,24 @@ document.querySelectorAll('.btn-calcular').forEach(btn => {
       const cheioA = parseFloat(form.querySelector('.cheioA').value);
       const taraB = parseFloat(form.querySelector('.taraB').value);
       const cheioB = parseFloat(form.querySelector('.cheioB').value);
-
       if ([taraA, cheioA, taraB, cheioB].some(isNaN)) {
         resultado.textContent = '⚠️ Preencha todos os campos corretamente.';
         resultado.style.backgroundColor = 'var(--error)';
         return;
       }
-
       const pesoA = cheioA - taraA;
       const pesoB = cheioB - taraB;
       const maior = Math.max(pesoA, pesoB);
       const menor = Math.min(pesoA, pesoB);
       proporcao = (menor / maior) * 100;
-    } else if (tipo === 'cola') {
+    } else {
       const p1 = parseFloat(form.querySelector('.peso1').value);
       const p2 = parseFloat(form.querySelector('.peso2').value);
-
       if ([p1, p2].some(isNaN)) {
         resultado.textContent = '⚠️ Preencha todos os campos corretamente.';
         resultado.style.backgroundColor = 'var(--error)';
         return;
       }
-
       const maior = Math.max(p1, p2);
       const menor = Math.min(p1, p2);
       proporcao = (maior / menor) * 100;
