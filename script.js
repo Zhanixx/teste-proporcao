@@ -28,13 +28,21 @@ themeBtn.onclick = () => {
 };
 
 // -------------------------------
-// Alternância de idioma (simples)
+// Troca de idioma (Português ⇄ Chinês)
 // -------------------------------
-document.getElementById('toggleLang').onclick = () => {
-  const lang = document.documentElement.lang === 'pt' ? 'zh' : 'pt';
-  document.documentElement.lang = lang;
-  alert(`Idioma alterado para: ${lang === 'pt' ? 'Português' : 'Chinês (Mandarim)'}`);
-};
+const langBtn = document.getElementById('toggleLang');
+langBtn.addEventListener('click', () => {
+  const html = document.documentElement;
+  const newLang = html.lang === 'pt' ? 'zh' : 'pt';
+  html.lang = newLang;
+  updateLanguage(newLang);
+});
+
+function updateLanguage(lang) {
+  document.querySelectorAll('[data-pt]').forEach(el => {
+    el.textContent = el.getAttribute(`data-${lang}`);
+  });
+}
 
 // -------------------------------
 // Cálculo geral
@@ -45,7 +53,6 @@ document.querySelectorAll('.btn-calcular').forEach(btn => {
     const resultado = form.querySelector('.resultado');
     const tolerancia = parseFloat(form.dataset.tolerancia);
     const tipo = form.dataset.tipo;
-
     let proporcao = 0;
 
     if (tipo === 'resina' || tipo === 'reparo') {
@@ -64,7 +71,6 @@ document.querySelectorAll('.btn-calcular').forEach(btn => {
       const pesoB = cheioB - taraB;
       const maior = Math.max(pesoA, pesoB);
       const menor = Math.min(pesoA, pesoB);
-
       proporcao = (menor / maior) * 100;
     } else if (tipo === 'cola') {
       const p1 = parseFloat(form.querySelector('.peso1').value);
@@ -82,7 +88,6 @@ document.querySelectorAll('.btn-calcular').forEach(btn => {
     }
 
     const dentro = proporcao >= (tolerancia - 2) && proporcao <= (tolerancia + 2);
-
     resultado.textContent = `Proporção: ${proporcao.toFixed(2)}%\n${dentro ? '✅ Dentro da tolerância' : '❌ Fora da tolerância'} (${tolerancia} ± 2)`;
     resultado.style.backgroundColor = dentro ? 'var(--success)' : 'var(--error)';
   });
