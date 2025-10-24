@@ -21,14 +21,13 @@ const themeBtn = document.getElementById('toggleTheme');
 if (localStorage.getItem('dark-mode') === 'true') {
   document.body.classList.add('dark-mode');
 }
-
 themeBtn.onclick = () => {
   document.body.classList.toggle('dark-mode');
   localStorage.setItem('dark-mode', document.body.classList.contains('dark-mode'));
 };
 
 // -------------------------------
-// Troca de idioma (Português ⇄ Chinês)
+// Sistema de idiomas (Português ⇄ Chinês Simplificado)
 // -------------------------------
 const langBtn = document.getElementById('toggleLang');
 langBtn.addEventListener('click', () => {
@@ -39,13 +38,43 @@ langBtn.addEventListener('click', () => {
 });
 
 function updateLanguage(lang) {
+  // Tradução de textos fixos
   document.querySelectorAll('[data-pt]').forEach(el => {
     el.textContent = el.getAttribute(`data-${lang}`);
   });
+
+  // Tradução de placeholders
+  const translations = {
+    pt: {
+      taraA: 'Tara A (Resina)',
+      cheioA: 'Peso com Resina',
+      taraB: 'Tara B (Endurecedor)',
+      cheioB: 'Peso com Endurecedor',
+      peso1: 'Peso Cola Verde',
+      peso2: 'Peso Cola Amarela'
+    },
+    zh: {
+      taraA: '树脂A皮重',
+      cheioA: '树脂总重',
+      taraB: '固化剂B皮重',
+      cheioB: '固化剂总重',
+      peso1: '绿色胶重量',
+      peso2: '黄色胶重量'
+    }
+  };
+
+  Object.keys(translations[lang]).forEach(cls => {
+    document.querySelectorAll('.' + cls).forEach(input => {
+      input.placeholder = translations[lang][cls];
+    });
+  });
 }
 
+// Inicializa idioma padrão
+updateLanguage(document.documentElement.lang);
+
 // -------------------------------
-// Cálculo geral
+// Cálculo geral das proporções
 // -------------------------------
 document.querySelectorAll('.btn-calcular').forEach(btn => {
   btn.addEventListener('click', () => {
