@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calculadora de Proporções</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- jsPDF e html2canvas via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -31,7 +34,10 @@
           <input type="number" step="0.001" class="cheioA" placeholder="Peso com Resina" required>
           <input type="number" step="0.001" class="taraB" placeholder="Tara B (Endurecedor)" required>
           <input type="number" step="0.001" class="cheioB" placeholder="Peso com Endurecedor" required>
-          <button type="button" class="btn-calcular" data-pt="Calcular" data-zh="计算">Calcular</button>
+          <div class="actions-row">
+            <button type="button" class="btn-calcular" data-pt="Calcular" data-zh="计算">Calcular</button>
+            <button type="button" class="btn-export-single" data-pt="Exportar resultado (PDF)" data-zh="导出结果 (PDF)">Exportar resultado (PDF)</button>
+          </div>
           <div class="resultado"></div>
         </form>
       </section>
@@ -44,7 +50,10 @@
           <input type="number" step="0.001" class="cheioA" placeholder="Peso com Resina" required>
           <input type="number" step="0.001" class="taraB" placeholder="Tara B (Endurecedor)" required>
           <input type="number" step="0.001" class="cheioB" placeholder="Peso com Endurecedor" required>
-          <button type="button" class="btn-calcular" data-pt="Calcular" data-zh="计算">Calcular</button>
+          <div class="actions-row">
+            <button type="button" class="btn-calcular" data-pt="Calcular" data-zh="计算">Calcular</button>
+            <button type="button" class="btn-export-single" data-pt="Exportar resultado (PDF)" data-zh="导出结果 (PDF)">Exportar resultado (PDF)</button>
+          </div>
           <div class="resultado"></div>
         </form>
       </section>
@@ -55,16 +64,29 @@
           <h2 data-pt="Proporção Massa de Cola" data-zh="胶浆比例">Proporção Massa de Cola</h2>
           <input type="number" step="0.001" class="peso1" placeholder="Peso Cola Verde" required>
           <input type="number" step="0.001" class="peso2" placeholder="Peso Cola Amarela" required>
-          <button type="button" class="btn-calcular" data-pt="Calcular" data-zh="计算">Calcular</button>
+          <div class="actions-row">
+            <button type="button" class="btn-calcular" data-pt="Calcular" data-zh="计算">Calcular</button>
+            <button type="button" class="btn-export-single" data-pt="Exportar resultado (PDF)" data-zh="导出结果 (PDF)">Exportar resultado (PDF)</button>
+          </div>
           <div class="resultado"></div>
         </form>
+      </section>
+
+      <!-- Histórico -->
+      <section class="history-section">
+        <div class="history-header">
+          <h3 data-pt="Histórico de Cálculos" data-zh="计算历史">Histórico de Cálculos</h3>
+          <div>
+            <button id="btnExportHistory" data-pt="Exportar histórico (PDF)" data-zh="导出历史 (PDF)">Exportar histórico (PDF)</button>
+            <button id="btnClearHistory" data-pt="Limpar histórico" data-zh="清除历史">Limpar histórico</button>
+          </div>
+        </div>
+        <ul class="history-list"></ul>
       </section>
     </main>
   </div>
 
-  <footer class="watermark" data-pt="Desenvolvido por Gustavo" data-zh="由 Gustavo 开发">
-    Desenvolvido por Gustavo
-  </footer>
+  <footer class="watermark" data-pt="Desenvolvido por Gustavo" data-zh="由 Gustavo 开发">Desenvolvido por Gustavo</footer>
 
   <script src="script.js"></script>
 </body>
